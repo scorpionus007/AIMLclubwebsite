@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AIML Club | National Forensic Sciences University</title>
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary-black: #000000;
+            --accent-yellow: #F4D03F;
+            --secondary-yellow: #F7DC6F;
+            --dark-gray: #2C3E50;
+            --light-gray: #F8F9FA;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        /* Custom Navbar Styling */
+        .navbar-custom {
+            background-color: var(--primary-black) !important;
+            padding: 1rem 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .navbar-brand {
+            font-weight: bold;
+            font-size: 1.5rem;
+            color: white !important;
+        }
+
+        .navbar-brand img {
+            height: 48px;
+            margin-right: 14px;
+            background: white;
+            border-radius: 50%;
+            padding: 6px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+            border: 2px solid var(--accent-yellow);
+        }
+
+        .navbar-nav .nav-link {
+            color: white !important;
+            font-weight: 500;
+            margin: 0 10px;
+            transition: color 0.3s ease;
+        }
+
+        .navbar-nav .nav-link:hover {
+            color: var(--accent-yellow) !important;
+        }
+
+        .navbar-toggler {
+            border-color: var(--accent-yellow);
+        }
+
+        .navbar-toggler-icon {
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='%23F4D03F' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+        }
+
+        /* Section Styling */
+        .section {
+            padding: 80px 0 60px 0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            transition: background 0.5s;
+        }
+
+        .section:nth-child(even) {
+            background: linear-gradient(120deg, #f8f9fa 80%, #f4d03f11 100%);
+        }
+
+        /* Add section fade-in */
+        .section {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s, transform 0.8s;
+        }
+        .section.visible {
+            opacity: 1;
+            transform: none;
+        }
+
+        /* Home Section */
+        #home {
+            background: linear-gradient(135deg, var(--primary-black) 0%, var(--dark-gray) 100%);
+            color: white;
+            text-align: center;
+        }
+
+        #home h1 {
+            font-size: 3.5rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            color: var(--accent-yellow);
+        }
+
+        #home h2 {
+            font-size: 1.8rem;
+            font-weight: 300;
+            margin-bottom: 2rem;
+        }
+
+        /* Button Styling */
+        .btn-custom {
+            background: linear-gradient(90deg, var(--accent-yellow) 60%, var(--secondary-yellow) 100%);
+            color: var(--primary-black);
+            border: none;
+            padding: 14px 36px;
+            font-weight: bold;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            letter-spacing: 0.5px;
+            box-shadow: 0 4px 18px rgba(244, 208, 63, 0.18);
+            transition: all 0.3s cubic-bezier(.4,2,.6,1);
+        }
+
+        .btn-custom:hover {
+            background: linear-gradient(90deg, var(--secondary-yellow) 60%, var(--accent-yellow) 100%);
+            color: var(--primary-black);
+            transform: translateY(-3px) scale(1.04);
+            box-shadow: 0 8px 24px rgba(244, 208, 63, 0.28);
+        }
+
+        /* Section Headers */
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-header h2 {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--primary-black);
+            margin-bottom: 1rem;
+        }
+
+        .section-header .underline {
+            width: 80px;
+            height: 4px;
+            background-color: var(--accent-yellow);
+            margin: 0 auto;
+        }
+
+        /* About Section */
+        #about p {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        /* Announcements Section */
+        .announcement-card {
+            background: white;
+            border-left: 5px solid var(--accent-yellow);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+            transition: transform 0.3s ease;
+        }
+
+        .announcement-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .announcement-card .card-body {
+            padding: 2rem;
+        }
+
+        .announcement-icon {
+            color: var(--accent-yellow);
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Gallery Section */
+        .gallery-item {
+            margin-bottom: 2rem;
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.05);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+
+        /* Projects Section */
+        #projects {
+            background: linear-gradient(135deg, var(--primary-black) 0%, var(--dark-gray) 100%);
+            color: white;
+            text-align: center;
+        }
+
+        #projects h2 {
+            color: var(--accent-yellow);
+        }
+
+        #projects p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+        }
+
+        /* Contact Form */
+        .contact-form {
+            background: white;
+            padding: 3rem 2rem;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.13);
+            border: 1.5px solid #f4d03f33;
+        }
+
+        .form-control {
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            padding: 14px 16px;
+            font-size: 1.08rem;
+            transition: border-color 0.3s;
+        }
+
+        .form-control:focus {
+            border-color: var(--accent-yellow);
+            box-shadow: 0 0 0 0.2rem rgba(244, 208, 63, 0.18);
+        }
+
+        /* Footer */
+        .footer {
+            background: linear-gradient(90deg, var(--primary-black) 80%, #2c3e50 100%);
+            color: white;
+            text-align: center;
+            padding: 2rem 0 1rem 0;
+            font-size: 1.08rem;
+            letter-spacing: 0.2px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .navbar-brand img {
+                height: 40px;
+                padding: 4px;
+            }
+            .section {
+                padding: 60px 0 40px 0;
+            }
+            .contact-form {
+                padding: 1.5rem 0.7rem;
+            }
+        }
+        @media (max-width: 768px) {
+            #home h1 {
+                font-size: 2.1rem;
+            }
+            #home h2 {
+                font-size: 1.1rem;
+            }
+            .section-header h2 {
+                font-size: 1.3rem;
+            }
+            .section {
+                padding: 40px 0 20px 0;
+            }
+            .contact-form {
+                padding: 1rem 0.2rem;
+            }
+            .gallery-item img {
+                height: 160px;
+            }
+        }
+        @media (max-width: 576px) {
+            .navbar-brand img {
+                height: 32px;
+                padding: 2px;
+            }
+            .btn-custom {
+                padding: 10px 18px;
+                font-size: 0.98rem;
+            }
+        }
+
+        /* Smooth scroll offset for fixed navbar */
+        .section {
+            scroll-margin-top: 80px;
+        }
+
+        /* Timeline/Roadmap Custom Styles */
+        .timeline {
+            position: relative;
+            padding-left: 0;
+        }
+        .timeline-item {
+            position: relative;
+        }
+        .timeline-dot {
+            z-index: 2;
+            border: 3px solid #fff;
+            box-shadow: 0 2px 8px rgba(244,208,63,0.18);
+        }
+        .timeline-content {
+            position: relative;
+            z-index: 3;
+        }
+        .timeline-line {
+            z-index: 1;
+        }
+        @media (max-width: 768px) {
+            .timeline-content {
+                padding: 1.2rem 0.7rem !important;
+                font-size: 0.98rem;
+            }
+            .timeline-dot {
+                width: 18px !important;
+                height: 18px !important;
+            }
+            .timeline-line {
+                left: 5px !important;
+            }
+        }
+        /* Team Cards Customization */
+        #team .card {
+            border-radius: 16px;
+            background: #fff;
+            box-shadow: 0 4px 18px rgba(44,62,80,0.07);
+            min-height: 180px;
+        }
+        #team .card-title {
+            color: var(--primary-black);
+            font-size: 1.15rem;
+            font-weight: 600;
+        }
+        #team .card-body p {
+            font-size: 1.05rem;
+            color: #444;
+        }
+        .about-card {
+            border-left: 6px solid var(--accent-yellow);
+            background: rgba(255,255,255,0.92);
+        }
+        .about-list li {
+            margin-bottom: 0.3rem;
+            padding-left: 1.2em;
+            position: relative;
+        }
+        .about-list li:before {
+            content: '\2022';
+            color: var(--accent-yellow);
+            position: absolute;
+            left: 0;
+            font-size: 1.2em;
+            top: 0.1em;
+        }
+        .team-card-gradient {
+            background: linear-gradient(120deg, #fffbe6 60%, #f7dc6f33 100%) !important;
+        }
+        #team .card {
+            border-radius: 16px;
+            box-shadow: 0 4px 18px rgba(44,62,80,0.07);
+            min-height: 180px;
+            border: none;
+        }
+        #team .card-title {
+            color: var(--primary-black);
+            font-size: 1.15rem;
+            font-weight: 600;
+        }
+        #team .card-body p {
+            font-size: 1.05rem;
+            color: #444;
+        }
+        .timeline-content {
+            border-left: 4px solid var(--accent-yellow);
+            background: linear-gradient(120deg, #fffbe6 60%, #f7dc6f33 100%);
+        }
+        .faculty-card {
+            min-height: 110px;
+            border-radius: 18px;
+        }
+        .faculty-icon {
+            width: 60px;
+            height: 60px;
+            background: #fffbe6;
+            border-radius: 50%;
+            box-shadow: 0 2px 8px rgba(244,208,63,0.13);
+        }
+        .team-card-accent {
+            border-top: 4px solid var(--accent-yellow);
+            border-radius: 18px !important;
+            margin-top: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+        .team-icon {
+            background: #fffbe6;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 8px rgba(244,208,63,0.13);
+        }
+        @media (max-width: 768px) {
+            .faculty-card { flex-direction: column !important; text-align: center; }
+            .faculty-icon { margin-bottom: 1rem !important; margin-right: 0 !important; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark navbar-custom fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#home">
+                <img src="AIML Logo.jpg" alt="AIML Club Logo">
+                AIML Club
+            </a>
+            
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#home">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#about">About Us</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#announcements">Announcements</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#gallery">Gallery</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#projects">Projects</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contact">Contact Us</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Home Section -->
+    <section id="home" class="section">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <h1>Welcome to AIML Club</h1>
+                    <h2>National Forensic Sciences University, Gandhinagar</h2>
+                    <p class="lead mb-4">Innovating the future through Artificial Intelligence and Machine Learning</p>
+                    <a href="#about" class="btn btn-custom btn-lg">Learn More</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Us Section -->
+    <section id="about" class="section" style="background: linear-gradient(120deg, #f4d03f11 60%, #f7dc6f33 100%);">
+        <div class="container">
+            <div class="section-header">
+                <h2>About Us</h2>
+                <div class="underline"></div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-lg-10">
+                    <div class="about-card p-4 p-md-5 rounded-4 shadow-sm" style="background: rgba(255,255,255,0.92); border-left: 6px solid var(--accent-yellow);">
+                        <p style="font-size:1.18rem;">
+                            The AIML Club at NFSU Gandhinagar is your gateway to the world of Artificial Intelligence and Machine Learning. We bring together curious minds to learn, build, and innovate through hands-on workshops, expert talks, hackathons, and collaborative projects. Whether you're just starting out or looking to deepen your skills, our club is the perfect place to connect, grow, and make an impact in AI/ML.
+                        </p>
+                        <ul class="about-list" style="font-size:1.08rem; margin-bottom:0;">
+                            <li>Interactive sessions with industry leaders</li>
+                            <li>Real-world projects & competitions</li>
+                            <li>Peer learning and study groups</li>
+                            <li>Exclusive resources and certifications</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Our Team Section -->
+    <section id="team" class="section" style="background: linear-gradient(120deg, #f7dc6f33 60%, #f4d03f11 100%);">
+        <div class="container">
+            <div class="section-header">
+                <h2>Our Team</h2>
+                <div class="underline"></div>
+            </div>
+            <div class="row g-4 justify-content-center">
+                <div class="col-md-6 col-lg-4">
+                    <div class="card h-100 shadow-sm border-0 team-card-gradient team-card-accent position-relative">
+                        <div class="team-icon position-absolute top-0 start-50 translate-middle" style="font-size:2.2rem; color:var(--accent-yellow); margin-top:-1.2rem;">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="card-body text-center pt-4">
+                            <h5 class="card-title mb-2">Student Coordinators</h5>
+                            <p class="mb-0">Aryan Sakaria<br>Prerana Wagh</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="card h-100 shadow-sm border-0 team-card-gradient team-card-accent position-relative">
+                        <div class="team-icon position-absolute top-0 start-50 translate-middle" style="font-size:2.2rem; color:var(--accent-yellow); margin-top:-1.2rem;">
+                            <i class="fas fa-laptop-code"></i>
+                        </div>
+                        <div class="card-body text-center pt-4">
+                            <h5 class="card-title mb-2">Tech Team</h5>
+                            <p class="mb-0">Supriy Rathi<br>Bhaskar Bhar<br>Anay Pandya<br>Priyanshu Verma<br>Shiv Srivastava<br>Sumit Gupta</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="card h-100 shadow-sm border-0 team-card-gradient team-card-accent position-relative">
+                        <div class="team-icon position-absolute top-0 start-50 translate-middle" style="font-size:2.2rem; color:var(--accent-yellow); margin-top:-1.2rem;">
+                            <i class="fas fa-calendar-check"></i>
+                        </div>
+                        <div class="card-body text-center pt-4">
+                            <h5 class="card-title mb-2">Events Team</h5>
+                            <p class="mb-0">Kunj Buddhdev<br>Devesh Chaudhary<br>Shaunak Shukla<br>Harin Faldu<br>Aastha Shah</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="card h-100 shadow-sm border-0 team-card-gradient team-card-accent position-relative">
+                        <div class="team-icon position-absolute top-0 start-50 translate-middle" style="font-size:2.2rem; color:var(--accent-yellow); margin-top:-1.2rem;">
+                            <i class="fas fa-paint-brush"></i>
+                        </div>
+                        <div class="card-body text-center pt-4">
+                            <h5 class="card-title mb-2">Design Team</h5>
+                            <p class="mb-0">Lakshya Samay Singh<br>Divya Ekhande<br>Dheemanth Rao<br>Sarthak Singh</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="card h-100 shadow-sm border-0 team-card-gradient team-card-accent position-relative">
+                        <div class="team-icon position-absolute top-0 start-50 translate-middle" style="font-size:2.2rem; color:var(--accent-yellow); margin-top:-1.2rem;">
+                            <i class="fas fa-bullhorn"></i>
+                        </div>
+                        <div class="card-body text-center pt-4">
+                            <h5 class="card-title mb-2">Marketing Team</h5>
+                            <p class="mb-0">Vanshaj Pratap Singh<br>Keren Rao<br>Adil Dyer</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Our Journey Section (Roadmap) -->
+    <section id="journey" class="section" style="background: linear-gradient(120deg, #f4d03f11 60%, #f7dc6f33 100%);">
+        <div class="container">
+            <div class="section-header">
+                <h2>Our Journey</h2>
+                <div class="underline"></div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-md-10">
+                    <div class="timeline position-relative" style="margin: 0 auto;">
+                        <div class="timeline-item mb-5 position-relative" style="padding-left: 40px;">
+                            <div class="timeline-dot position-absolute top-0 start-0 translate-middle bg-warning rounded-circle" style="width: 24px; height: 24px; left: 0; top: 0;"></div>
+                            <div class="timeline-content bg-white rounded shadow-sm p-4 ms-4">
+                                <h5 class="mb-1">Club Launch (Sep 2024)</h5>
+                                <p class="mb-0">AIML Club is born! We kicked off our journey to unite AI/ML enthusiasts at NFSU, opening doors to learning, collaboration, and innovation for all students.</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item mb-5 position-relative" style="padding-left: 40px;">
+                            <div class="timeline-dot position-absolute top-0 start-0 translate-middle bg-warning rounded-circle" style="width: 24px; height: 24px; left: 0; top: 0;"></div>
+                            <div class="timeline-content bg-white rounded shadow-sm p-4 ms-4">
+                                <h5 class="mb-1">DataCamp Access (Dec 2024)</h5>
+                                <p class="mb-0">We partnered with DataCamp to give every NFSU student free access to top-tier AI, ML, and Data Science courses—empowering hands-on learning for all skill levels.</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item position-relative" style="padding-left: 40px;">
+                            <div class="timeline-dot position-absolute top-0 start-0 translate-middle bg-warning rounded-circle" style="width: 24px; height: 24px; left: 0; top: 0;"></div>
+                            <div class="timeline-content bg-white rounded shadow-sm p-4 ms-4">
+                                <h5 class="mb-1">Intro Event & CTF (Jan 2025)</h5>
+                                <p class="mb-0">Our first event brought 200+ students together for an AI/ML CTF, sparking curiosity, teamwork, and a passion for real-world problem solving in AI.</p>
+                            </div>
+                        </div>
+                        <div class="timeline-line position-absolute bg-warning" style="width: 4px; left: 8px; top: 12px; bottom: 0; z-index: 0;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Announcements Section -->
+    <section id="announcements" class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Announcements</h2>
+                <div class="underline"></div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card announcement-card">
+                        <div class="card-body">
+                            <div class="announcement-icon">
+                                <i class="fas fa-calendar-alt"></i>
+                            </div>
+                            <h5 class="card-title">AI Workshop</h5>
+                            <p class="card-text">AI Workshop on June 20th – Register now! Join us for an intensive workshop covering the latest AI techniques and their applications in forensic sciences.</p>
+                            <a href="#contact" class="btn btn-custom">Register Now</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card announcement-card">
+                        <div class="card-body">
+                            <div class="announcement-icon">
+                                <i class="fab fa-github"></i>
+                            </div>
+                            <h5 class="card-title">New GitHub Repository</h5>
+                            <p class="card-text">New GitHub repo for ML Mini Projects is live. Explore our collection of machine learning projects and contribute to open-source development.</p>
+                            <a href="#projects" class="btn btn-custom">View Projects</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Gallery</h2>
+                <div class="underline"></div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="gallery-item">
+                        <img src="AIMLgroup1.jpg" alt="AIML Club Group 1" class="img-fluid rounded">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="gallery-item">
+                        <img src="AIMLgroup2.jpg" alt="AIML Club Group 2" class="img-fluid rounded">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="gallery-item">
+                        <img src="AIMLgroup3.jpg" alt="AIML Club Group 3" class="img-fluid rounded">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="gallery-item">
+                        <img src="gallery1.jpg" alt="AIML Club Event 1" class="img-fluid rounded">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="gallery-item">
+                        <img src="gallery2.jpg" alt="AIML Club Event 2" class="img-fluid rounded">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="gallery-item">
+                        <img src="gallery3.jpg" alt="AIML Club Event 3" class="img-fluid rounded">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Projects</h2>
+                <div class="underline" style="background-color: var(--accent-yellow);"></div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <p>Check out our GitHub for cool ML projects and contribute to our growing repository of innovative solutions.</p>
+                    <a href="https://github.com/YOUR_GITHUB_USERNAME" target="_blank" class="btn btn-custom btn-lg">
+                        <i class="fab fa-github me-2"></i>
+                        View Our GitHub
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Us Section -->
+    <section id="contact" class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Contact Us</h2>
+                <div class="underline"></div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="contact-form">
+                        <form id="contactForm" action="https://formsubmit.co/aimlclubnfsu@gmail.com" method="POST">
+                            <input type="hidden" name="_captcha" value="false">
+                            <input type="hidden" name="_template" value="table">
+                            <input type="hidden" name="_autoresponse" value="Thank you for contacting AIML Club! We have received your message.">
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="name" class="form-label">Name</label>
+                                    <input type="text" class="form-control" id="name" name="name" required>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="email" class="form-label">Email</label>
+                                    <input type="email" class="form-control" id="email" name="email" required>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="message" class="form-label">Message</label>
+                                <textarea class="form-control" id="message" name="message" rows="5" required></textarea>
+                            </div>
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-custom btn-lg">
+                                    <i class="fas fa-paper-plane me-2"></i>
+                                    Send Message
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <p>&copy; 2025 AIML Club | National Forensic Sciences University</p>
+                    <p class="mb-0">
+                        <i class="fas fa-envelope me-2" style="color: var(--accent-yellow);"></i>
+                        aimlclubnfsu@gmail.com |
+                        <i class="fas fa-phone ms-3 me-2" style="color: var(--accent-yellow);"></i>
+                        +91 8999411111
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap 5 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Custom JavaScript -->
+    <script>
+        // Section fade-in on scroll
+        function revealSections() {
+            const sections = document.querySelectorAll('.section');
+            const windowHeight = window.innerHeight;
+            sections.forEach(section => {
+                const sectionTop = section.getBoundingClientRect().top;
+                if (sectionTop < windowHeight - 80) {
+                    section.classList.add('visible');
+                }
+            });
+        }
+        window.addEventListener('scroll', revealSections);
+        window.addEventListener('DOMContentLoaded', revealSections);
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Navbar background on scroll
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar-custom');
+            if (window.scrollY > 50) {
+                navbar.style.backgroundColor = 'rgba(0, 0, 0, 0.95)';
+            } else {
+                navbar.style.backgroundColor = 'var(--primary-black)';
+            }
+        });
+
+        // Active navigation highlighting
+        window.addEventListener('scroll', function() {
+            const sections = document.querySelectorAll('.section');
+            const navLinks = document.querySelectorAll('.navbar-nav .nav-link');
+            
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (window.pageYOffset >= sectionTop - 200) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === '#' + current) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
+        // Add CSS for active nav link
+        const style = document.createElement('style');
+        style.textContent = `
+            .navbar-nav .nav-link.active {
+                color: var(--accent-yellow) !important;
+                font-weight: bold;
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
