@@ -693,11 +693,11 @@
         <div class="popup-content" onclick="openRegistrationForm(event)">
             <span class="popup-close" onclick="closePopup(event)">&times;</span>
             <div class="popup-icon">
-                <i class="fas fa-motorcycle"></i>
+                <i class="fab fa-github"></i>
             </div>
-            <h3 class="popup-title">Campus Ride Service - This Sunday!</h3>
-            <p class="popup-text">Join our new campus ride booking service this Sunday! Get convenient and safe transportation around campus.</p>
-            <button class="popup-button">Register for Ride Service</button>
+            <h3 class="popup-title">Introduction to Open Source Contribution</h3>
+            <p class="popup-text">Learn the fundamentals of open-source development with Indrani Som! June 15, 2025 at 4 PM onwards. No prior experience needed!</p>
+            <button class="popup-button">Register Now</button>
         </div>
     </div>
 
@@ -706,11 +706,13 @@
         <div class="registration-form-container">
             <span class="popup-close" onclick="closeRegistrationForm(event)">&times;</span>
             <div class="form-header">
-                <i class="fas fa-motorcycle" style="font-size: 2rem; color: var(--accent-yellow); margin-bottom: 1rem;"></i>
-                <h3>Campus Ride Service Registration</h3>
-                <p>Fill in your details to register for our campus ride booking service</p>
+                <i class="fab fa-github" style="font-size: 2rem; color: var(--accent-yellow); margin-bottom: 1rem;"></i>
+                <h3>Open Source Workshop Registration</h3>
+                <p>Register for "Introduction to Open Source Contribution" workshop on June 15, 2025</p>
             </div>
-            <form id="rideRegistrationForm" class="registration-form">
+            <form id="rideRegistrationForm" action="https://formspree.io/f/YOUR_FORM_ID" method="POST" class="registration-form">
+                <!-- REPLACE 'YOUR_FORM_ID' above with your actual Formspree form ID -->
+                <!-- Example: https://formspree.io/f/xpzgkrbl -->
                 <div class="form-row">
                     <div class="form-group">
                         <label for="fullName">Full Name *</label>
@@ -749,6 +751,22 @@
                             <option value="7">7th Semester</option>
                             <option value="8">8th Semester</option>
                         </select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="experience">Programming Experience</label>
+                        <select id="experience" name="experience">
+                            <option value="">Select Experience Level</option>
+                            <option value="beginner">Beginner</option>
+                            <option value="intermediate">Intermediate</option>
+                            <option value="advanced">Advanced</option>
+                            <option value="none">No Experience</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="github">GitHub Username (if any)</label>
+                        <input type="text" id="github" name="github" placeholder="@username">
                     </div>
                 </div>
                 <div class="form-actions">
@@ -987,11 +1005,11 @@
                     <div class="card announcement-card">
                         <div class="card-body">
                             <div class="announcement-icon">
-                                <i class="fas fa-motorcycle"></i>
+                                <i class="fab fa-github"></i>
                             </div>
-                            <h5 class="card-title">Campus Ride Service - This Sunday!</h5>
-                            <p class="card-text">Join our new campus ride booking service this Sunday! Get convenient and safe transportation around campus.</p>
-                            <a href="#" id="sundayEventBtn" class="btn btn-custom">Register for Ride Service</a>
+                            <h5 class="card-title">Open Source Workshop - June 15</h5>
+                            <p class="card-text">Learn open-source development fundamentals with industry expert Indrani Som. No prior experience needed!</p>
+                            <a href="#" id="sundayEventBtn" class="btn btn-custom">Register for Workshop</a>
                         </div>
                     </div>
                 </div>
@@ -1227,29 +1245,22 @@
         
         // Handle form submission
         document.getElementById('rideRegistrationForm').addEventListener('submit', function(e) {
-            e.preventDefault();
+            // Let the form submit naturally to Formspree
+            // Just show a loading state and success message
+            const submitButton = this.querySelector('.btn-primary');
+            const originalText = submitButton.textContent;
             
-            // Get form data
-            const formData = new FormData(this);
-            const data = Object.fromEntries(formData);
+            submitButton.textContent = 'Registering...';
+            submitButton.disabled = true;
             
-            // Simple validation
-            if (!data.fullName || !data.email || !data.phone) {
-                alert('Please fill in all required fields (Name, Email, Phone)');
-                return;
-            }
-            
-            // Here you would typically send the data to your backend
-            console.log('Registration data:', data);
-            
-            // Show success message
-            alert('Registration successful! We will contact you soon with ride booking details.');
-            
-            // Close the form
-            closeRegistrationForm(e);
-            
-            // Reset the form
-            this.reset();
+            // After a delay (simulating submission), show success message
+            setTimeout(() => {
+                alert('Registration submitted successfully! You will receive a confirmation email shortly.');
+                closeRegistrationForm(e);
+                this.reset();
+                submitButton.textContent = originalText;
+                submitButton.disabled = false;
+            }, 2000);
         });
     </script>
 </body>
