@@ -439,8 +439,125 @@
             .faculty-icon { margin-bottom: 1rem !important; margin-right: 0 !important; }
         }
     </style>
+    
+    <!-- Popup Notification Styles -->
+    <style>
+        .popup-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+        
+        .popup-overlay.show {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .popup-content {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            max-width: 500px;
+            width: 90%;
+            position: relative;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            transform: scale(0.8);
+        }
+        
+        .popup-overlay.show .popup-content {
+            transform: scale(1);
+        }
+        
+        .popup-close {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 24px;
+            cursor: pointer;
+            color: #999;
+            transition: color 0.3s ease;
+        }
+        
+        .popup-close:hover {
+            color: #333;
+        }
+        
+        .popup-icon {
+            font-size: 3rem;
+            color: var(--accent-yellow);
+            margin-bottom: 1rem;
+        }
+        
+        .popup-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary-black);
+            margin-bottom: 1rem;
+        }
+        
+        .popup-text {
+            color: #666;
+            font-size: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .popup-button {
+            background: var(--accent-yellow);
+            color: var(--primary-black);
+            padding: 12px 24px;
+            border: none;
+            border-radius: 25px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .popup-button:hover {
+            background: var(--secondary-yellow);
+            transform: translateY(-2px);
+        }
+        
+        @media (max-width: 768px) {
+            .popup-content {
+                padding: 1.5rem;
+                margin: 1rem;
+            }
+            .popup-title {
+                font-size: 1.2rem;
+            }
+            .popup-text {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
 </head>
 <body>
+    <!-- Popup Notification -->
+    <div id="eventPopup" class="popup-overlay">
+        <div class="popup-content" onclick="redirectToForm(event)">
+            <span class="popup-close" onclick="closePopup(event)">&times;</span>
+            <div class="popup-icon">
+                <i class="fas fa-calendar-star"></i>
+            </div>
+            <h3 class="popup-title">Special Event This Sunday!</h3>
+            <p class="popup-text">Join us for an exciting AI/ML event this Sunday. Don't miss out on this amazing opportunity!</p>
+            <button class="popup-button">Register Now</button>
+        </div>
+    </div>
+
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark navbar-custom fixed-top">
         <div class="container">
@@ -641,7 +758,7 @@
                 <div class="underline"></div>
             </div>
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-4">
                     <div class="card announcement-card">
                         <div class="card-body">
                             <div class="announcement-icon">
@@ -653,7 +770,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-4">
                     <div class="card announcement-card">
                         <div class="card-body">
                             <div class="announcement-icon">
@@ -662,6 +779,18 @@
                             <h5 class="card-title">Join The AI/ML Club Community</h5>
                             <p class="card-text">Join our social communities to be a part of the AI/ML Club NFSU. Click the link below to join the groups.</p>
                             <a href="https://linktr.ee/aimlnfsu" target="_blank" class="btn btn-custom">Join the Community</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card announcement-card">
+                        <div class="card-body">
+                            <div class="announcement-icon">
+                                <i class="fas fa-calendar-star"></i>
+                            </div>
+                            <h5 class="card-title">Special Event This Sunday!</h5>
+                            <p class="card-text">Join us for an exciting AI/ML event this Sunday. Don't miss out on this amazing opportunity to learn and network!</p>
+                            <a href="#" id="sundayEventBtn" class="btn btn-custom">Register for Event</a>
                         </div>
                     </div>
                 </div>
@@ -848,6 +977,41 @@
             }
         `;
         document.head.appendChild(style);
+        
+        // Popup functionality
+        function showPopup() {
+            document.getElementById('eventPopup').classList.add('show');
+        }
+        
+        function closePopup(event) {
+            event.stopPropagation();
+            document.getElementById('eventPopup').classList.remove('show');
+        }
+        
+        function redirectToForm(event) {
+            if (event.target.classList.contains('popup-close')) return;
+            // Replace 'YOUR_GOOGLE_FORM_LINK' with the actual Google form URL
+            window.open('YOUR_GOOGLE_FORM_LINK', '_blank');
+            closePopup(event);
+        }
+        
+        // Show popup when page loads
+        window.addEventListener('load', function() {
+            setTimeout(showPopup, 1000); // Show popup after 1 second
+        });
+        
+        // Handle announcement button click
+        document.getElementById('sundayEventBtn').addEventListener('click', function(e) {
+            e.preventDefault();
+            window.open('YOUR_GOOGLE_FORM_LINK', '_blank');
+        });
+        
+        // Close popup when clicking outside content
+        document.getElementById('eventPopup').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closePopup(e);
+            }
+        });
     </script>
 </body>
 </html>
