@@ -542,19 +542,220 @@
                 font-size: 0.9rem;
             }
         }
+        
+        /* Registration Form Styles */
+        .registration-form-container {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            max-width: 600px;
+            width: 95%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            transform: scale(0.8);
+            transition: transform 0.3s ease;
+        }
+        
+        .popup-overlay.show .registration-form-container {
+            transform: scale(1);
+        }
+        
+        .form-header {
+            text-align: center;
+            margin-bottom: 2rem;
+            border-bottom: 2px solid #f0f0f0;
+            padding-bottom: 1rem;
+        }
+        
+        .form-header h3 {
+            color: var(--primary-black);
+            margin-bottom: 0.5rem;
+            font-size: 1.5rem;
+        }
+        
+        .form-header p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        .registration-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+        
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .form-group label {
+            font-weight: 600;
+            color: var(--primary-black);
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+        
+        .form-group input,
+        .form-group select {
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+            background: white;
+        }
+        
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--accent-yellow);
+            box-shadow: 0 0 0 3px rgba(244, 208, 63, 0.1);
+        }
+        
+        .form-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: flex-end;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 2px solid #f0f0f0;
+        }
+        
+        .btn-primary {
+            background: var(--accent-yellow);
+            color: var(--primary-black);
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+        }
+        
+        .btn-primary:hover {
+            background: var(--secondary-yellow);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(244, 208, 63, 0.3);
+        }
+        
+        .btn-secondary {
+            background: #f5f5f5;
+            color: #666;
+            padding: 12px 24px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+        }
+        
+        .btn-secondary:hover {
+            background: #e8e8e8;
+            border-color: #ccc;
+        }
+        
+        @media (max-width: 768px) {
+            .registration-form-container {
+                padding: 1.5rem;
+                margin: 1rem;
+                max-height: 95vh;
+            }
+            
+            .form-row {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+            
+            .form-actions {
+                flex-direction: column;
+            }
+            
+            .form-header h3 {
+                font-size: 1.2rem;
+            }
+        }
     </style>
 </head>
 <body>
     <!-- Popup Notification -->
     <div id="eventPopup" class="popup-overlay">
-        <div class="popup-content" onclick="redirectToForm(event)">
+        <div class="popup-content" onclick="openRegistrationForm(event)">
             <span class="popup-close" onclick="closePopup(event)">&times;</span>
             <div class="popup-icon">
-                <i class="fas fa-calendar-star"></i>
+                <i class="fas fa-motorcycle"></i>
             </div>
-            <h3 class="popup-title">Special Event This Sunday!</h3>
-            <p class="popup-text">Join us for an exciting AI/ML event this Sunday. Don't miss out on this amazing opportunity!</p>
-            <button class="popup-button">Register Now</button>
+            <h3 class="popup-title">Campus Ride Service - This Sunday!</h3>
+            <p class="popup-text">Join our new campus ride booking service this Sunday! Get convenient and safe transportation around campus.</p>
+            <button class="popup-button">Register for Ride Service</button>
+        </div>
+    </div>
+
+    <!-- Registration Form Modal -->
+    <div id="registrationModal" class="popup-overlay">
+        <div class="registration-form-container">
+            <span class="popup-close" onclick="closeRegistrationForm(event)">&times;</span>
+            <div class="form-header">
+                <i class="fas fa-motorcycle" style="font-size: 2rem; color: var(--accent-yellow); margin-bottom: 1rem;"></i>
+                <h3>Campus Ride Service Registration</h3>
+                <p>Fill in your details to register for our campus ride booking service</p>
+            </div>
+            <form id="rideRegistrationForm" class="registration-form">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="fullName">Full Name *</label>
+                        <input type="text" id="fullName" name="fullName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email Address *</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="phone">Phone Number *</label>
+                        <input type="tel" id="phone" name="phone" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="university">University</label>
+                        <input type="text" id="university" name="university" placeholder="National Forensic Sciences University">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="course">Course</label>
+                        <input type="text" id="course" name="course" placeholder="e.g., B.Sc Forensic Science">
+                    </div>
+                    <div class="form-group">
+                        <label for="semester">Semester</label>
+                        <select id="semester" name="semester">
+                            <option value="">Select Semester</option>
+                            <option value="1">1st Semester</option>
+                            <option value="2">2nd Semester</option>
+                            <option value="3">3rd Semester</option>
+                            <option value="4">4th Semester</option>
+                            <option value="5">5th Semester</option>
+                            <option value="6">6th Semester</option>
+                            <option value="7">7th Semester</option>
+                            <option value="8">8th Semester</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-actions">
+                    <button type="button" onclick="closeRegistrationForm(event)" class="btn-secondary">Cancel</button>
+                    <button type="submit" class="btn-primary">Register Now</button>
+                </div>
+            </form>
         </div>
     </div>
 
@@ -786,11 +987,11 @@
                     <div class="card announcement-card">
                         <div class="card-body">
                             <div class="announcement-icon">
-                                <i class="fas fa-calendar-star"></i>
+                                <i class="fas fa-motorcycle"></i>
                             </div>
-                            <h5 class="card-title">Special Event This Sunday!</h5>
-                            <p class="card-text">Join us for an exciting AI/ML event this Sunday. Don't miss out on this amazing opportunity to learn and network!</p>
-                            <a href="#" id="sundayEventBtn" class="btn btn-custom">Register for Event</a>
+                            <h5 class="card-title">Campus Ride Service - This Sunday!</h5>
+                            <p class="card-text">Join our new campus ride booking service this Sunday! Get convenient and safe transportation around campus.</p>
+                            <a href="#" id="sundayEventBtn" class="btn btn-custom">Register for Ride Service</a>
                         </div>
                     </div>
                 </div>
@@ -988,11 +1189,15 @@
             document.getElementById('eventPopup').classList.remove('show');
         }
         
-        function redirectToForm(event) {
+        function openRegistrationForm(event) {
             if (event.target.classList.contains('popup-close')) return;
-            // Replace 'YOUR_GOOGLE_FORM_LINK' with the actual Google form URL
-            window.open('YOUR_GOOGLE_FORM_LINK', '_blank');
             closePopup(event);
+            document.getElementById('registrationModal').classList.add('show');
+        }
+        
+        function closeRegistrationForm(event) {
+            event.stopPropagation();
+            document.getElementById('registrationModal').classList.remove('show');
         }
         
         // Show popup when page loads
@@ -1003,7 +1208,7 @@
         // Handle announcement button click
         document.getElementById('sundayEventBtn').addEventListener('click', function(e) {
             e.preventDefault();
-            window.open('YOUR_GOOGLE_FORM_LINK', '_blank');
+            document.getElementById('registrationModal').classList.add('show');
         });
         
         // Close popup when clicking outside content
@@ -1011,6 +1216,40 @@
             if (e.target === this) {
                 closePopup(e);
             }
+        });
+        
+        // Close registration form when clicking outside content
+        document.getElementById('registrationModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeRegistrationForm(e);
+            }
+        });
+        
+        // Handle form submission
+        document.getElementById('rideRegistrationForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form data
+            const formData = new FormData(this);
+            const data = Object.fromEntries(formData);
+            
+            // Simple validation
+            if (!data.fullName || !data.email || !data.phone) {
+                alert('Please fill in all required fields (Name, Email, Phone)');
+                return;
+            }
+            
+            // Here you would typically send the data to your backend
+            console.log('Registration data:', data);
+            
+            // Show success message
+            alert('Registration successful! We will contact you soon with ride booking details.');
+            
+            // Close the form
+            closeRegistrationForm(e);
+            
+            // Reset the form
+            this.reset();
         });
     </script>
 </body>
