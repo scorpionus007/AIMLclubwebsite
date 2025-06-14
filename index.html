@@ -721,9 +721,11 @@
                 <h3>Open Source Workshop Registration</h3>
                 <p>Register for "Introduction to Open Source Contribution" workshop on June 15, 2025</p>
             </div>
-            <form id="rideRegistrationForm" action="https://formspree.io/f/mldnbeva" method="POST" class="registration-form">
-                <!-- Connected to Formspree form endpoint -->
-                <!-- Form submissions will be sent to your Formspree dashboard -->
+            <form id="rideRegistrationForm" action="https://api.web3forms.com/submit" method="POST" class="registration-form">
+                <input type="hidden" name="access_key" value="6e12a6c6-fb92-4629-8922-2877789a22cc">
+                <input type="hidden" name="subject" value="New Workshop Registration - Open Source Workshop">
+                <input type="hidden" name="redirect" value="https://web3forms.com/success">
+                <!-- Form submissions will be sent to your Web3Forms dashboard -->
                 <div class="form-row">
                     <div class="form-group">
                         <label for="fullName">Full Name *</label>
@@ -1086,10 +1088,10 @@
             <div class="row justify-content-center">
                 <div class="col-lg-8">
                     <div class="contact-form">
-                        <form id="contactForm" action="https://formspree.io/f/mdkzegka" method="POST">
-                            <input type="hidden" name="_captcha" value="false">
-                            <input type="hidden" name="_template" value="table">
-                            <input type="hidden" name="_autoresponse" value="Thank you for contacting AIML Club! We have received your message.">
+                        <form id="contactForm" action="https://api.web3forms.com/submit" method="POST">
+                            <input type="hidden" name="access_key" value="6e12a6c6-fb92-4629-8922-2877789a22cc">
+                            <input type="hidden" name="subject" value="New Contact Form Submission from AIML Club Website">
+                            <input type="hidden" name="redirect" value="https://web3forms.com/success">
                             <div class="row">
                                 <div class="col-md-6 mb-3">
                                     <label for="name" class="form-label">Name</label>
